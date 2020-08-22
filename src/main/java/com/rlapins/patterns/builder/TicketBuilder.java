@@ -19,7 +19,7 @@ public interface TicketBuilder<SELF extends TicketBuilder<SELF, TARGET>, TARGET 
 
     SELF withPrice(String price);
 
-    SELF withTicketOwner(String ticketOwner);
+    SELF withStatus(String status);
 
     SELF withDepartureTime(LocalDateTime departureTime);
 

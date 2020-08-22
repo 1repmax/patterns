@@ -20,7 +20,7 @@ public class EcoTicketBuilderTest {
                 LocalDateTime.of(2015, Month.FEBRUARY, 20, 8, 30),
                 5, List.of(Service.COFFEE), "economical");
 
-        EcoTicket actualTicket = new EcoTicketBuilder().withTicketOwner("Raivo Lapins")
+        EcoTicket actualTicket = new EcoTicketBuilder().withStatus("Raivo Lapins")
                 .withDepartureStation("Riga")
                 .withArrivalStation("Valmiera")
                 .withDepartureTime(LocalDateTime.of(2015, Month.FEBRUARY, 20, 6, 30))

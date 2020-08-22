@@ -41,8 +41,8 @@ public abstract class AbstractTicketBuilder<BUILDER extends TicketBuilder<BUILDE
     }
 
     @Override
-    public BUILDER withTicketOwner(String ticketOwner) {
-        this.ticketOwner = ticketOwner;
+    public BUILDER withStatus(String status) {
+        this.ticketOwner = status;
         return self();
     }
 

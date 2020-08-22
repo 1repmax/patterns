@@ -20,7 +20,7 @@ public class TicketBuilderTest {
                 LocalDateTime.of(2015, Month.FEBRUARY, 20, 8, 30),
                 5, List.of(Service.COFFEE), "business");
 
-        BusinessTicket actualTicket = new BusinessTicketBuilder().withTicketOwner("Raivo Lapins")
+        BusinessTicket actualTicket = new BusinessTicketBuilder().withStatus("Raivo Lapins")
                 .withDepartureStation("Riga")
                 .withArrivalStation("Valmiera")
                 .withDepartureTime(LocalDateTime.of(2015, Month.FEBRUARY, 20, 6, 30))

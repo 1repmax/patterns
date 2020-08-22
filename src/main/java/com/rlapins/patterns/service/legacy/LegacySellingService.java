@@ -13,6 +13,9 @@ public class LegacySellingService {
      * in the old legacy version.
      */
     public boolean sellTicket(Ticket ticket, String sellerId) {
+        if(ticket.getStatus().equalsIgnoreCase("sold")) {
+            return false;
+        }
         ticket.setStatus("Sold");
         log.info("Ticket has been sold by " + sellerId);
         return true;
