@@ -1,7 +1,6 @@
 package com.rlapins.patterns.service.adapter;
 
 import com.rlapins.patterns.model.Ticket;
-import com.rlapins.patterns.service.legacy.LegacySellingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

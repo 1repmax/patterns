@@ -1,4 +1,4 @@
-package com.rlapins.patterns.service.filter;
+package com.rlapins.patterns.service.strategy;
 
 import com.rlapins.patterns.model.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,20 +10,19 @@ import java.util.stream.Collectors;
 /**
  * Strategy pattern.
  */
-@Component
-public class AvailableTicketFilter implements TicketFilterStrategy<Ticket> {
+public class SoldTicketFilter implements TicketFilterStrategy<Ticket> {
 
     private List<Ticket> ticketList;
 
     @Autowired
-    public AvailableTicketFilter(List<Ticket> ticketList) {
+    public SoldTicketFilter(List<Ticket> ticketList) {
         this.ticketList = ticketList;
     }
 
     @Override
     public List<Ticket> filter() {
         return ticketList.stream()
-                .filter(ticket -> ticket.getStatus().equalsIgnoreCase("available"))
+                .filter(ticket -> ticket.getStatus().equalsIgnoreCase("sold"))
                 .collect(Collectors.toList());
     }
 }

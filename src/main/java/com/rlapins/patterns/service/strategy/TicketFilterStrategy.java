@@ -1,4 +1,4 @@
-package com.rlapins.patterns.service.filter;
+package com.rlapins.patterns.service.strategy;
 
 import com.rlapins.patterns.model.Ticket;
 

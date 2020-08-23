@@ -2,20 +2,21 @@ package com.rlapins.patterns;
 
 import com.rlapins.patterns.builder.BusinessTicketBuilder;
 import com.rlapins.patterns.builder.EcoTicketBuilder;
-import com.rlapins.patterns.model.BusinessTicket;
-import com.rlapins.patterns.model.EcoTicket;
 import com.rlapins.patterns.model.Ticket;
 import com.rlapins.patterns.model.enumerations.Service;
 import com.rlapins.patterns.service.TicketService;
-import com.rlapins.patterns.service.filter.AvailableTicketFilter;
-import com.rlapins.patterns.service.filter.SoldTicketFilter;
-import com.rlapins.patterns.service.filter.TicketFilterStrategy;
+import com.rlapins.patterns.service.decorator.Base;
+import com.rlapins.patterns.service.decorator.BaseTicket;
+import com.rlapins.patterns.service.decorator.CoffeeDecorator;
+import com.rlapins.patterns.service.decorator.WifiDecorator;
+import com.rlapins.patterns.service.strategy.AvailableTicketFilter;
+import com.rlapins.patterns.service.strategy.SoldTicketFilter;
+import com.rlapins.patterns.service.strategy.TicketFilterStrategy;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,21 +30,43 @@ public class PatternsApplication {
 
 		List<Ticket> samples = createSampleData();
 
+		demonstrateStrategyPattern(samples);
+		demonstrateAdapterPattern(samples, service);
+		demonstrateDecoratorPattern();
+
+	}
+
+	private static void demonstrateStrategyPattern(List<Ticket> tickets) {
 		//Demonstrates Strategy pattern usage
 		System.out.println("Printing Available tickets: ");
-		TicketFilterStrategy<Ticket> strategy = new AvailableTicketFilter(samples);
+		TicketFilterStrategy<Ticket> strategy = new AvailableTicketFilter(tickets);
 		displayTickets(strategy.filter());
 
 		System.out.println("Printing Sold tickets: ");
-		strategy = new SoldTicketFilter(samples);
+		strategy = new SoldTicketFilter(tickets);
 		displayTickets(strategy.filter());
+		System.out.println();
+	}
 
-		//Demonstrates Adapter usage
-		samples.forEach(service::sell);
+	private static void demonstrateAdapterPattern(List<Ticket> tickets, TicketService service) {
+		TicketFilterStrategy<Ticket> strategy = new AvailableTicketFilter(tickets);
+		tickets.forEach(service::sell);
 		System.out.println("Printing Sold tickets after selling each of them: ");
 		displayTickets(strategy.filter());
+		System.out.println();
+	}
 
+	private static void demonstrateDecoratorPattern() {
+		Base base = new BaseTicket();
+		System.out.println(base.makeBaseTicket());
 
+		//Add coffee
+		base = new CoffeeDecorator(base);
+		System.out.println(base.makeBaseTicket());
+
+		//Add WIFI
+		base = new WifiDecorator(base);
+		System.out.println(base.makeBaseTicket());
 	}
 
 	private static List<Ticket> createSampleData() {
@@ -62,6 +85,9 @@ public class PatternsApplication {
 		return tickets;
 	}
 
+	/**
+	 * Demonstrates Builder pattern.
+	 */
 	private static Ticket createEcoTicket(String depStat, String arrStat, String status, Integer seat) {
 		return new EcoTicketBuilder()
 				.withStatus(status)
@@ -76,6 +102,9 @@ public class PatternsApplication {
 				.build();
 	}
 
+	/**
+	 * Demonstrates Builder pattern.
+	 */
 	private static Ticket createBusinessTicket(String depStat, String arrStat, String status, Integer seat) {
 		return new BusinessTicketBuilder()
 				.withStatus(status)
