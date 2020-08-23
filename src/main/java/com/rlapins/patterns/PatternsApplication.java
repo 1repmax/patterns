@@ -9,6 +9,8 @@ import com.rlapins.patterns.service.decorator.Base;
 import com.rlapins.patterns.service.decorator.BaseTicket;
 import com.rlapins.patterns.service.decorator.CoffeeDecorator;
 import com.rlapins.patterns.service.decorator.WifiDecorator;
+import com.rlapins.patterns.service.iterator.Iterator;
+import com.rlapins.patterns.service.iterator.TicketRepository;
 import com.rlapins.patterns.service.strategy.AvailableTicketFilter;
 import com.rlapins.patterns.service.strategy.SoldTicketFilter;
 import com.rlapins.patterns.service.strategy.TicketFilterStrategy;
@@ -33,6 +35,7 @@ public class PatternsApplication {
 		demonstrateStrategyPattern(samples);
 		demonstrateAdapterPattern(samples, service);
 		demonstrateDecoratorPattern();
+		demonstrateIteratorPattern((TicketRepository)context.getBean("ticketRepository"));
 
 	}
 
@@ -49,7 +52,7 @@ public class PatternsApplication {
 	}
 
 	private static void demonstrateAdapterPattern(List<Ticket> tickets, TicketService service) {
-		TicketFilterStrategy<Ticket> strategy = new AvailableTicketFilter(tickets);
+		TicketFilterStrategy<Ticket> strategy = new SoldTicketFilter(tickets);
 		tickets.forEach(service::sell);
 		System.out.println("Printing Sold tickets after selling each of them: ");
 		displayTickets(strategy.filter());
@@ -67,6 +70,15 @@ public class PatternsApplication {
 		//Add WIFI
 		base = new WifiDecorator(base);
 		System.out.println(base.makeBaseTicket());
+
+		System.out.println();
+	}
+
+	private static void demonstrateIteratorPattern(TicketRepository repository) {
+		Iterator<Ticket> iterator = repository.getIterator();
+		while(iterator.hasNext()) {
+			System.out.println("Ticket with seat number " + iterator.next().getSeatNumber());
+		}
 	}
 
 	private static List<Ticket> createSampleData() {

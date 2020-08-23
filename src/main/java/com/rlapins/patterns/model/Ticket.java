@@ -25,6 +25,11 @@ public abstract class Ticket {
         return serviceList;
     }
 
+    //Used to demonstrate Iterator pattern
+    public Ticket(int seatNumber) {
+        this.seatNumber = seatNumber;
+    }
+
     public Ticket(String departureStation, String arrivalStation, String price, String status,
                   LocalDateTime departureTime, LocalDateTime arrivalTime, Integer seatNumber,
                   List<Service> serviceList) {

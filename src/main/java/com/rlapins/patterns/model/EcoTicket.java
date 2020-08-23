@@ -10,6 +10,10 @@ public class EcoTicket extends Ticket {
 
     private String economicalField;
 
+    public EcoTicket(int seatNumber) {
+        super(seatNumber);
+    }
+
     public EcoTicket(String departureStation, String arrivalStation, String price, String ticketOwner,
                      LocalDateTime departureTime, LocalDateTime arrivalTime, Integer seatNumber,
                      List<Service> serviceList, String economicalField) {

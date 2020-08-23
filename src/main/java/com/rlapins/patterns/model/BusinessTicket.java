@@ -10,6 +10,11 @@ public class BusinessTicket extends Ticket {
 
     private String businessField;
 
+    public BusinessTicket(int seatNumber) {
+        super(seatNumber);
+    }
+
+
     public BusinessTicket(String departureStation, String arrivalStation, String price, String ticketOwner,
                           LocalDateTime departureTime, LocalDateTime arrivalTime, Integer seatNumber,
                           List<Service> serviceList, String businessField) {
